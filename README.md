@@ -1,2 +1,2 @@
-# config-tutorial
-Configuration screen for the Pebble Development Tutorial series
+# pebble-configs
+Configs hosted on gh-pages for Pebble watch apps. 
