@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SmoothieControl</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css" />
+        <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>
+    </head>
+    <body>
+        <div data-role="page" id="main">
+            <div data-role="header" class="jqm-header">
+                <h1>SmoothieControl</h1>
+            </div>
+            <div data-role="content">
+                <div data-role="collapsible">
+                    <h3>General</h3>
+	                <div class="ui-field-contain">
+                        <label for="key1" id="label_key13"><b>IP Adress</b></label>
+                        <input name="key1" id="trans_key13" placeholder="" value="" data-mini="true" type="text" maxlength="500">
+                    </div>
+                </div>
+            </div>
+        <br />
+            <div class="ui-body ui-body-c">
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a"><button type="submit" data-theme="d" id="b-cancel">Cancel</button></div>
+                    <div class="ui-block-b"><button type="submit" data-theme="a" id="b-submit">Save</button></div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <script>
+      function saveOptions() {
+          var options = {
+              "ipAddress": $("input[name=key1]").val()
+          }
+          console.log(options);
+          return options;
+      }
+      $().ready(function() {
+          if (typeof window.localStorage !== "undefined") {
+       	      console.log("Not undefined");
+              if (window.localStorage.smoothiecontrol) {
+                  retrievedOptions = JSON.parse(window.localStorage.smoothiecontrol);
+                  $("input[name=key1]").val(retrievedOptions["ipAddress"]);
+              }
+          }
+          $("#b-cancel").click(function() {
+              console.log("Cancel");
+              document.location = "pebblejs://close";
+          });
+          $("#b-submit").click(function() {
+              console.log("Submit");
+              retrievedOptions = JSON.stringify(saveOptions());
+              if (typeof window.localStorage !== "undefined") {
+                  window.localStorage.smoothiecontrol = retrievedOptions;
+              }
+              var location = "pebblejs://close#" + retrievedOptions;
+              console.log("Warping to: " + location);
+              document.location = location;
+          });
+      });
+    </script>
+  </body>
+</html>
