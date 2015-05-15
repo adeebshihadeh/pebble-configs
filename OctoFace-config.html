@@ -28,29 +28,28 @@
     <button class="btn btn-default" id="close_screen_btn" style="text-align: center;">Close</button>
     <script>
         function saveSettings(){
-            var settings = {
+            var options = {
                 "octo_ip": $("#octo_ip").val(),
                 "octo_apikey": $("#octo_apikey").val()
             }
-            console.log(settings);
-            return JSON.stringify(settings);
+            console.log(options);
+            return JSON.stringify(options);
         }
         $().ready(function(){
-            if(typeof window.localStorage !== "undefined" && window.localStorage.settings){
-                var settings = JSON.parse(window.localStorage.settings);
-                $("#octo_ip").val(settings["octo_ip"]);
-                $("#octo_apikey").val(settings["octo_apikey"]);
+            if(typeof window.localStorage !== "undefined" && window.localStorage.octoface){
+                var options = JSON.parse(window.localStorage.octoface);
+                $("#octo_ip").val(options["octo_ip"]);
+                $("#octo_apikey").val(options["octo_apikey"]);
             }
         });
         $("#save_settings_btn").click(function(){
-            console.log("run run vroom vroom");
             if(typeof window.localStorage !== "undefined"){
-                window.localStorage.settings = saveSettings();    
+                window.localStorage.octoface = saveSettings();    
             }
         });
         $("#close_screen_btn").click(function(){
-            var settings = window.localStorage.settings;
-            document.location = "pebblejs://close#" + settings;
+            var options = window.localStorage.octoface;
+            document.location = "pebblejs://close#" + options;
         });
     </script>
 </body>
