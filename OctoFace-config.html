@@ -39,6 +39,7 @@
             if(typeof window.localStorage !== "undefined" && window.localStorage.settings){
                 var settings = JSON.parse(window.localStorage.settings);
                 $("#octo_ip").val(settings["octo_ip"]);
+                $("#octo_apikey").val(settings["octo_apikey"]);
             }
         });
         $("#save_settings_btn").click(function(){
