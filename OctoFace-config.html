@@ -29,26 +29,26 @@
     <script>
         function saveSettings(){
             var options = {
-                "octo_ip": $("#octo_ip").val(),
-                "octo_apikey": $("#octo_apikey").val()
-            }
+                "ipAddress": $("#octo_ip").val(),
+                "apiKey": $("#octo_apikey").val()
+            };
             console.log(options);
+            localStorage.setItem("ipAddress", $("#octo_ip").val());
+            localStorage.setItem("apiKey", $("#octo_apikey").val());
             return JSON.stringify(options);
         }
         $().ready(function(){
-            if(typeof window.localStorage !== "undefined" && window.localStorage.octoface){
-                var options = JSON.parse(window.localStorage.octoface);
-                $("#octo_ip").val(options["octo_ip"]);
-                $("#octo_apikey").val(options["octo_apikey"]);
+            if(localStorage.getItem("octoface") !== null){
+                var options = JSON.parse(localStorage.getItem("octoface"));
+                $("#octo_ip").val(options["ipAddress"]);
+                $("#octo_apikey").val(options["apiKey"]);
             }
         });
         $("#save_settings_btn").click(function(){
-            if(typeof window.localStorage !== "undefined"){
-                window.localStorage.octoface = saveSettings();    
-            }
+            localStorage.setItem("octoface", saveSettings());
         });
         $("#close_screen_btn").click(function(){
-            var options = window.localStorage.octoface;
+            var options = localStorage.getItem("octoface");
             document.location = "pebblejs://close#" + options;
         });
     </script>
