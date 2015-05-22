@@ -6,6 +6,8 @@
     <title>OctoFace Config</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://github.com/makeusabrew/bootbox/releases/download/v4.4.0/bootbox.min.js"></script>
 </head>
 
 <body>
@@ -24,13 +26,27 @@
             </div>
         </div>
     </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> Watchface Settings</div>
+        <div class="panel-body">
+            <div>
+                <div class="input-group">
+                  <span class="input-group-addon">Refresh frequency</span>
+                  <input id="refresh_frequency" type="number" class="form-control" value="1">
+                  <span class="input-group-addon">minute(s)</span>
+                </div>
+                <div class="well well-sm" style="margin-top: 5px;"><i>Note:</i> More is greater battery life</div>
+            </div>
+        </div>
+    </div>
     <button class="btn btn-primary" id="save_settings_btn" style="text-align: center;">Save Settings</button>
     <button class="btn btn-default" id="close_screen_btn" style="text-align: center;">Close</button>
     <script>
         function saveSettings(){
             var options = {
                 "octo_ip": $("#octo_ip").val(),
-                "octo_apikey": $("#octo_apikey").val()
+                "octo_apikey": $("#octo_apikey").val(),
+                "refresh_frequency": $("#refresh_frequency").val()
             }
             console.log(options);
             return JSON.stringify(options);
@@ -40,16 +56,19 @@
                 var options = JSON.parse(window.localStorage.octoface);
                 $("#octo_ip").val(options["octo_ip"]);
                 $("#octo_apikey").val(options["octo_apikey"]);
+                $("#refresh_frequency").val(options["refresh_frequency"]);
             }
         });
         $("#save_settings_btn").click(function(){
-            if(typeof window.localStorage !== "undefined"){
+            if(parseInt($("#refresh_frequency").val()) < 1 || $("#refresh_frequency").val() === ""){
+                bootbox.alert("The refresh frequency must be a value greater than 1 minute.");
+            }else if(typeof window.localStorage !== "undefined"){
                 window.localStorage.octoface = saveSettings();    
             }
         });
         $("#close_screen_btn").click(function(){
             var options = window.localStorage.octoface;
-            document.location = "pebblejs://close#" + options;
+            document.location = "pebblejs://close#" + encodeURIComponent(options);
         });
     </script>
 </body>
