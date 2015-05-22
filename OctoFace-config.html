@@ -44,8 +44,8 @@
     <script>
         function saveSettings(){
             var options = {
-                "octo_ip": $("#octo_ip").val(),
-                "octo_apikey": $("#octo_apikey").val(),
+                "ipAddress": $("#octo_ip").val(),
+                "apiKey": $("#octo_apikey").val(),
                 "refresh_frequency": $("#refresh_frequency").val()
             }
             console.log(options);
@@ -54,8 +54,8 @@
         $().ready(function(){
             if(typeof window.localStorage !== "undefined" && window.localStorage.octoface){
                 var options = JSON.parse(window.localStorage.octoface);
-                $("#octo_ip").val(options["octo_ip"]);
-                $("#octo_apikey").val(options["octo_apikey"]);
+                $("#octo_ip").val(options["ipAddress"]);
+                $("#octo_apikey").val(options["ipAddress"]);
                 $("#refresh_frequency").val(options["refresh_frequency"]);
             }
         });
