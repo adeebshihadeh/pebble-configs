@@ -68,7 +68,8 @@
         });
         $("#close_screen_btn").click(function(){
             var options = window.localStorage.octoface;
-            document.location = "pebblejs://close#" + encodeURIComponent(options);
+            var location = getQueryParam("return_to", "pebblejs://close#");
+            document.location = location + encodeURIComponent(options);
         });
     </script>
 </body>
