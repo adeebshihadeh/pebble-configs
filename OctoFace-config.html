@@ -81,7 +81,7 @@
           return defaultValue || false;
         }
         $("#close_screen_btn").click(function(){
-            var options = window.localStorage.octoface;
+            var options = JSON.stringify(window.localStorage.octoface);
             var location = getQueryParam("return_to", "pebblejs://close#");
             document.location = location + encodeURIComponent(options);
         });
